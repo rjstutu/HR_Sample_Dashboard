@@ -27,10 +27,10 @@ def main():
     )
     with exec_summary:
         tab_summary.render(df_hr)
-    with capacity_analysis:
-        tab_capacity.render(df_hr)
-    with attrition_analysis:
-        tab_attrition.render(df_hr)
+    # with capacity_analysis:
+    #     tab_capacity.render(df_hr)
+    # with attrition_analysis:
+    #     tab_attrition.render(df_hr)
 
 
 if __name__ == "__main__":
