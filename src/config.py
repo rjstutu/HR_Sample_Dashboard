@@ -15,7 +15,7 @@ class __PlotConfig:
     # ['ggplot2', 'seaborn', 'simple_white', 'plotly',
     #  'plotly_white', 'plotly_dark', 'presentation',
     #  'xgridoff', 'ygridoff', 'gridon', 'none']
-    theme = "plotly_dark"
+    theme = "simple_white"
     cat_color_map = px.colors.qualitative.T10
     cat_color_map_r = px.colors.qualitative.T10_r
     cont_color_map = px.colors.sequential.amp
@@ -29,14 +29,17 @@ class __AppConfig:
 
     # get current working directory
     cwd = os.getcwd()
-    banner_image = f"{cwd}/assets/hr-banner.png"
-    icon = f"{cwd}/assets/hr-banner.png"
-    app_title = "Dashboard - Capacity Management"
+    # banner_image = f"{cwd}/assets/hr-banner.png"
+    # icon = f"{cwd}/assets/hr-banner.png"
+    banner_image = f"{cwd}/assets/riots.jpg"
+    icon = f"{cwd}/assets/riots.jp"
+    app_title = "Sample HR Dashboard"
     data_file = f"{cwd}/input_data/raw_hr_data.csv"
     sidebar_state = "expanded"
     layout = "wide"
     icon_question = "❓"
     icon_insight = "🎯"
+    icon_test = ":1234:"
 
 
 ### make configs available to any module that imports this module

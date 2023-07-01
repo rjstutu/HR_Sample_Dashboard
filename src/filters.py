@@ -50,7 +50,10 @@ def __apply_filters(df, filter_elem, curr_filter_ui):
     ### loop through filter elements and get its current value from session_state
     ### and . Include the element only if its non-empty-list
     filter = ""
+
     for key, _ in filter_elem.items():
+        if 'Gender' not in st.session_state:
+            st.session_state['Gender'] = 'Male'
         elem = st.session_state[key]
         # non-empty
         if elem:
