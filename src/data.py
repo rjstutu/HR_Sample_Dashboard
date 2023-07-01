@@ -10,10 +10,7 @@ def load_transform(file) -> DataFrame:
     ###
     ### Read raw data
     ###
-
     df = pd.read_csv(file)
-
-    ###
     ### Handle missing data (None in this case)
     ###
 
@@ -49,16 +46,14 @@ def load_transform(file) -> DataFrame:
     # to divide TotalWorkExperience into bins, to be used in viz
     df["WorkExperience"] = pd.cut(
         df["TotalWorkingYears"],
-        bins=8,
+        bins=[0,2,5,10,15,20,"inf"],
         labels=[
-            "5 Yrs",
-            "10 Yrs",
-            "15 Yrs",
-            "20 Yrs",
-            "25 Yrs",
-            "30 Yrs",
-            "35 Yrs",
-            "40 Yrs",
+            "0-2 Yrs",
+            "2-5 Yrs",
+            "5-10 Yrs",
+            "10-15 Yrs",
+            "15-20 Yrs",
+            "20+ Yrs",
         ],
     )
 
