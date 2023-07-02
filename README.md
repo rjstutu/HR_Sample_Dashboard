@@ -1,6 +1,6 @@
 
-# Human Resource Analysis
-In this `Data Analysis` project, we examine raw HR data to learn more about how organizational policies influence employee behaviors such as `attrition` and `job-satisfaction` plus staff `promotions` and `layoffs`. The company's human resources policies shall then be amended based on the insights obtained.
+# HR sample dashboard
+This is a sample dashboard created to run some analysis based on public data, whether performed simple EDA and data transformation (already pretty clean). Include `Overall Analysis` on department, gender diversification and `attrition`, and `promotion` part. This is a preliminary dashboard to show the general idea of creating an analysis dashboard.
 
 
 ### Run the application locally:
