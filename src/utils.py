@@ -46,7 +46,7 @@ def render_card(
         unit=secondary_text,
         icon=icon,
         iconTop=5,
-        iconLeft=98,
+        iconLeft=80,
         height=150,
         progressValue=progress_value,
         progressColor=progress_color,
