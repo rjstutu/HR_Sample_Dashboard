@@ -153,7 +153,6 @@ def __build_age_plots(df: pd.DataFrame):
                     "* 45% are married, and 32% are single. 50% of married employees are "
                     + "between 31 and 44, while 50% of singles are 29 to 41; this pattern "
                     + "seems normal. There are 22% divorced, with 50% between 25 to 43; "
-                    + "this appears to be a bit unusual, and HR should note it.",
                 ]
             )
 
@@ -167,7 +166,6 @@ def __build_dept_plots(df: pd.DataFrame):
                 "* Do we have balanced gender distribution in each department? ",
                 "* In which department do people stick to their manager longest? ",
                 "* In which department do people tend to do more overtime? ",
-                "* Which department is the best paymaster? ",
             ]
         )
         fig_dept_gender_count = plots.plot_dept_gender_count_stackbar(df)
@@ -200,7 +198,7 @@ def __build_exp_plots(df: pd.DataFrame):
             [
                 "* Do we have a balanced distribution of employees based on their work experience? ",
                 "* Do we need targeted hiring for a particular work experience range? ",
-                "* Do employees prefer to work with our company for most of their working life? ",
+
             ]
         )
         fig_plot_tot_work_exp = plots.plot_tot_work_exp_bar(df)
