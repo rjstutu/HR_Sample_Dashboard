@@ -55,6 +55,7 @@ def __apply_filters(df, filter_elem, curr_filter_ui):
         if 'Gender' not in st.session_state:
             st.session_state['Gender'] = 'Male'
         elem = st.session_state[key]
+        print(elem)
         # non-empty
         if elem:
             # if there are existing filters then append "and"
@@ -70,7 +71,7 @@ def __apply_filters(df, filter_elem, curr_filter_ui):
     with curr_filter_ui:
         filter_show = "<br>and".join(filter.split("and"))
         st.markdown(
-            f'<span style="color:#002b36"><b><i>{filter_show}</i></b></span>',
+            f'<span style="color:##4B9B9"><b><i>{filter_show}</i></b></span>',
             unsafe_allow_html=True,
         )
     # return the filtered dataframe

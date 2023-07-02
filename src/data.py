@@ -46,7 +46,7 @@ def load_transform(file) -> DataFrame:
     # to divide TotalWorkExperience into bins, to be used in viz
     df["WorkExperience"] = pd.cut(
         df["TotalWorkingYears"],
-        bins=[0,2,5,10,15,20,"inf"],
+        bins=[0,3,5,11,16,21,100],
         labels=[
             "0-2 Yrs",
             "2-5 Yrs",
@@ -206,8 +206,7 @@ def get_filter_options(df, empty_filters=False):
         filter_opt = {
             "Gender": [],
             "Department": [],
-            "EducationField": [],
-            "JobRole": [],
+
             "Age": [df["Age"].min(), df["Age"].max()],
             "YearsAtCompany": [df["YearsAtCompany"].min(), df["YearsAtCompany"].max()],
         }
@@ -215,8 +214,6 @@ def get_filter_options(df, empty_filters=False):
         filter_opt = {
             "Gender": df["Gender"].unique().tolist(),
             "Department": df["Department"].unique().tolist(),
-            "EducationField": df["EducationField"].unique().tolist(),
-            "JobRole": df["JobRole"].unique().tolist(),
             "Age": [df["Age"].min(), df["Age"].max()],
             "YearsAtCompany": [df["YearsAtCompany"].min(), df["YearsAtCompany"].max()],
         }

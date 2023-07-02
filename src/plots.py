@@ -42,8 +42,8 @@ def plot_age_marital_status_pie(df: DataFrame) -> Figure:
     return fig
 
 
-def plot_age_marital_status_box(df: DataFrame) -> Figure:
-    fig = px.box(
+def plot_age_marital_status_violin(df: DataFrame) -> Figure:
+    fig = px.violin(
         data_frame=df,
         x="MaritalStatus",
         y="Age",
@@ -52,7 +52,6 @@ def plot_age_marital_status_box(df: DataFrame) -> Figure:
         color_discrete_sequence=plot_config.cat_color_map,
     )
     return fig
-
 
 def plot_age_gender_box(df: DataFrame) -> Figure:
     fig = px.box(
@@ -91,6 +90,33 @@ def plot_dept_gender_count_sunburst(df: DataFrame) -> Figure:
     )
 
     return fig
+
+
+def plot_dept_gender_count_stackbar(df: DataFrame) -> Figure:
+    df_group = (
+        df.groupby(["Department", "Gender"], as_index=False)
+        .size()
+        .assign(Top="Company")
+    )
+    df_group["size"] = df_group['size']/df_group.groupby("Department")['size'].transform('sum')* 100
+    fig = px.bar(
+        data_frame=df_group,
+        x="size",
+        y="Department",
+        color="Gender",
+        color_discrete_sequence=plot_config.cat_color_map,
+        title="Employee count in each department<br>segmented by gender",
+    )
+    fig.update_traces(
+        text="size",
+        texttemplate="%{x:.1f}%",
+        textposition="auto",
+        textfont_color="white",
+    )
+
+    return fig
+
+
 
 
 def plot_dept_curr_mgr_scatter(df: DataFrame) -> Figure:
@@ -171,6 +197,7 @@ def plot_promotion_donut(df):
         .reset_index()
         .rename({"ToBePromoted": "Promotion", "count": "Count"}, axis=1)
     )
+    
     fig = px.pie(
         df_group,
         names="Promotion",

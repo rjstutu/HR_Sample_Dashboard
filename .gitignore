@@ -8,7 +8,7 @@ venv*/
 artifacts/
 .examples/
 .swp
-eda.ipynb
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

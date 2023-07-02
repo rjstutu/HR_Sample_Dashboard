@@ -65,12 +65,12 @@ def download_file(btn_label, data, file_name, mime_type):
 
 
 def show_questions(questions: List[str]):
-    q = "QUESTIONS:\n" + "\n".join(questions)
+    q = f"QUESTIONS:  {questions}"
     streamlit.info(q, icon=app_config.icon_question)
 
 
 def show_insights(insights: List[str]):
-    a = "INSIGHTS:\n" + "\n".join(insights)
+    a = f"INSIGHTS:  {insights}"
     streamlit.warning(a, icon=app_config.icon_insight)
 
 

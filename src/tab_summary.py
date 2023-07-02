@@ -33,8 +33,8 @@ def __show_sample_data(df: pd.DataFrame):
     with streamlit.expander("View sample data | Download dataset..."):
         streamlit.markdown("#### Top 5 rows")
         streamlit.dataframe(df.head(5))
-        streamlit.markdown("#### Bottom 5 rows")
-        streamlit.dataframe(df.tail(5))
+        # streamlit.markdown("#### Bottom 5 rows")
+        # streamlit.dataframe(df.tail(5))
         # read the file again and then download
         csv = data.df_to_csv(app_config.data_file)
         utils.download_file(
@@ -116,7 +116,6 @@ def __build_age_plots(df: pd.DataFrame):
                 "* Are we an ageing or young organization?",
                 "* Do we need to recruit more young or more experienced people?",
                 "* Should we target recruiting employees for a particular age group and gender?",
-                "* Do we have a balanced distribution of employees by their marital status?",
             ]
         )
 
@@ -134,7 +133,7 @@ def __build_age_plots(df: pd.DataFrame):
             fig_age_box = plots.plot_age_marital_status_pie(df)
             streamlit.plotly_chart(fig_age_box, use_container_width=True)
         with age_dist_col2:
-            fig_age_box = plots.plot_age_marital_status_box(df)
+            fig_age_box = plots.plot_age_marital_status_violin(df)
             streamlit.plotly_chart(fig_age_box, use_container_width=True)
         ### List insights drawn wrt to objectives/questions
         with streamlit.expander("View insights...", expanded=True):
@@ -171,7 +170,7 @@ def __build_dept_plots(df: pd.DataFrame):
                 "* Which department is the best paymaster? ",
             ]
         )
-        fig_dept_gender_count = plots.plot_dept_gender_count_sunburst(df)
+        fig_dept_gender_count = plots.plot_dept_gender_count_stackbar(df)
         streamlit.plotly_chart(fig_dept_gender_count, use_container_width=True)
         with streamlit.container():
             ## department stats table
@@ -179,7 +178,7 @@ def __build_dept_plots(df: pd.DataFrame):
             streamlit.markdown("###### Department Stats")
             df_dept_stats = data.get_dept_stats_df(df)
             streamlit.dataframe(
-                df_dept_stats.style.background_gradient(cmap="Oranges"),
+                df_dept_stats.style.background_gradient(cmap="Greens"),
                 use_container_width=True,
             )
             ## yrs with curr manager
@@ -187,23 +186,11 @@ def __build_dept_plots(df: pd.DataFrame):
             fig_dept_curr_mgr = plots.plot_dept_curr_mgr_scatter(df)
             streamlit.plotly_chart(fig_dept_curr_mgr, use_container_width=True)
         with streamlit.expander("View insights..."):
-            utils.show_insights(
-                [
-                    "* By far, R&D is the largest department, employing 65% of the workforce, "
-                    + "then sales (30%) and HR (4%).",
-                    "There is a considerable gender imbalance in each department, and each "
-                    + "department has 15% more male employees than females. The disparity is "
-                    + "more severe in R&D and HR.",
-                    "* In Sales, employees tend to stick to their manager longer despite the "
-                    "R&D being twice the size of Sales",
-                    "* Even though R&D has double the workforce compared to Sales, twice as "
-                    + "many R&D employees are doing overtime compared to sales employees. "
-                    + "Are they still short in the workforce, or is there another "
-                    + "underlying reason?",
-                    "* On average Sales, the department is the best paymaster while the "
-                    + "salary hike in R&D is slightly better than Sales.",
-                ]
-            )
+            streamlit.markdown("#### Department insights")
+            streamlit.markdown(" - Department size: R&D (65%), Sales (30%), HR(4%)")
+            streamlit.markdown(" - Employees are slight more likely to stick with their manager in Sales, avg 4.2 yrs")
+            streamlit.markdown(" - There appeared to have a gender imbalance within all departments, males being the majority")
+            streamlit.markdown(" - R&D has the highest overtime hours, considering lack of workforce")
 
 
 def __build_exp_plots(df: pd.DataFrame):
@@ -216,35 +203,19 @@ def __build_exp_plots(df: pd.DataFrame):
                 "* Do employees prefer to work with our company for most of their working life? ",
             ]
         )
-        exp_stat_col1, exp_stat_col2 = streamlit.columns(2)
-        with exp_stat_col1:
-            # Total work experience
-            fig_plot_tot_work_exp = plots.plot_tot_work_exp_bar(df)
-            streamlit.plotly_chart(fig_plot_tot_work_exp, use_container_width=True)
-        # Total experience Vs experience in our company
-        with exp_stat_col2:
-            # Total work experience
-            pct_at_cmp = data.get_pct_at_cmp(df)
-            annot_text = __get_pct_at_cmp_annot_text(pct_at_cmp)
-            fig_plot_cmp_work_exp = plots.plot_cmp_work_exp_scatter(df, annot_text)
-            streamlit.plotly_chart(fig_plot_cmp_work_exp, use_container_width=True)
+        fig_plot_tot_work_exp = plots.plot_tot_work_exp_bar(df)
+        streamlit.plotly_chart(fig_plot_tot_work_exp, use_container_width=True)
+
+
         with streamlit.expander("View insights...", expanded=True):
-            utils.show_insights(
-                [
-                    "* There is a good mix of experience, however around 75 percent of workforce "
-                    + "is with experience 15 years or less, company should look to ramp-up "
-                    + " experienced hiring bit more. ",
-                    "* The relation between total-work-experience to years-at-company is "
-                    + "linear, large percentage of employee have spent most of their working life "
-                    + "with the company. Over 52% of employee have spent > 76% of their career "
-                    " at our company which is a good sign",
-                ]
-            )
+            streamlit.markdown("#### Work experience insights")
+            streamlit.markdown("- Most of the employees have 10 years of experience, followed by 10-15 years and 20+ years, which is a good sign for the company that keep old employees")
+            streamlit.markdown("- There is a good mix of experience, however around 20 percent of workforce have less than 5 years of experience, which may suggest more new employees are needed")
 
 
-def __get_pct_at_cmp_annot_text(pct_at_cmp):
-    annot_text = "Employee % by yrs work for company [in %] <br>"
-    annot_text += "-----------------------------------------<br>"
-    for key, value in pct_at_cmp.items():
-        annot_text += key + "\t: " + f"{value * 100:.2f}%<br>"
-    return annot_text
+# def __get_pct_at_cmp_annot_text(pct_at_cmp):
+#     annot_text = "Employee % by yrs work for company [in %] <br>"
+#     annot_text += "-----------------------------------------<br>"
+#     for key, value in pct_at_cmp.items():
+#         annot_text += key + "\t: " + f"{value * 100:.2f}%<br>"
+#     return annot_text

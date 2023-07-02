@@ -12,7 +12,7 @@ import plots
 ###
 def render(df: pd.DataFrame):
     # Show KPI cards section
-    __build_kpi_cards(df)
+    # __build_kpi_cards(df)
     # Show plots
     __build_dept_promo_retrench_plots(df)
 
@@ -25,7 +25,7 @@ def __build_kpi_cards(df):
         ### List questions/objectives
         utils.show_questions(
             [
-                "* Do we have a healthy promotion rate (min 10%)?",
+                "*How's the promotion rate?",
                 "* Are we above or below performance-based retrenchment rate (max 5%)?",
             ]
         )
@@ -125,14 +125,7 @@ def __build_dept_promo_retrench_plots(df):
             df_retrench = data.get_dept_retrench_pct(df)
             fig = plots.plot_dept_retrench_bar(df_retrench)
             streamlit.plotly_chart(fig, use_container_width=True)
-        with streamlit.expander("View Insights...", expanded=True):
-            utils.show_insights(
-                [
-                    "* All three departments are doing extremely poorly when it comes "
-                    + "to promoting employees, none of the departments even achieved "
-                    + "even 50% of the stipulated promotion target (min 10%).",
-                    "* On retrenchment front matter is even worse where all three "
-                    + "overshot the retrenchment targets, R&D and Sales departments "
-                    + "are projecting more than twice the stipulated target (max 5%) ",
-                ]
-            )
+        with streamlit.expander("Glossary", expanded=True):
+            streamlit.markdown( "##### Metrics Definition") 
+            streamlit.markdown("- **ToBePromoted**: Employees who are eligible for promotion Promoted if yrs since last promotion greater than 10 yrs and performance rating is better than 2")
+            streamlit.markdown("- **ToBeRetrenched**: Employees who met retrenched conditions Retreched if being with the company for more than 10 yrs and performance rating is 3 or less \n Or  being with the company 2- 10 yrs and performance rating is 1 with a attrition and non-promoted status")
